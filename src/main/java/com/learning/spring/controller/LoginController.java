@@ -27,11 +27,11 @@ public class LoginController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registerUser(@ModelAttribute("userForm") User user, Map<String, Object> map) {
 
-//		User userDetail = new User();
+		User userDetail = new User();
 		loginService.addUser(user);
-	/*	userDetail = user;
-		map.put("user", userDetail);*/
-		return "signup-success";
+		userDetail = user;
+		map.put("user", userDetail);
+		return "customer_detail";
 	}
 
 	/*

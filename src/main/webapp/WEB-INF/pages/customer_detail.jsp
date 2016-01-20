@@ -23,18 +23,18 @@
 			</tr>
 			<tr>
 				<td>First Name:</td>
-				<%-- <td>${userForm.firstname}</td> --%>
+				<td>${userForm.firstname}</td>
 			</tr>
 			<tr>
 				<td>Last Name:</td>
-				<%-- <td>${userForm.lastname}</td> --%>
+				<td>${userForm.lastname}</td>
 			</tr>
-			<%-- <tr>
+			<tr>
 				<td>User Name:</td>
 				<td>${userForm.username}</td>
 			</tr>
 
-			<tr>
+		<%-- <tr>
 				<td>Address Line 1:</td>
 				<td>${userForm.address.addressLine1}</td>
 			</tr>

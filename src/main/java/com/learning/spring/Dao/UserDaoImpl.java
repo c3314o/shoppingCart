@@ -3,6 +3,7 @@ package com.learning.spring.Dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void addUser(User user) {
+		Transaction trans = sessionFactory.getCurrentSession()
+				.beginTransaction();
 		sessionFactory.getCurrentSession().save(user);
+		trans.commit();
 	}
 
 	@Override

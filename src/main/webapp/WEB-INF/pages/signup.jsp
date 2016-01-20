@@ -24,7 +24,7 @@
 					<td>Last Name:</td>
 					<td><form:input path="lastname" /></td>
 				</tr>
-				<%-- <tr>
+				<tr>
 					<td>User Name:</td>
 					<td><form:input path="username" /></td>
 				</tr>
@@ -32,7 +32,7 @@
 					<td>Password:</td>
 					<td><form:password path="password" /></td>
 				</tr>
-				<tr>
+				<%-- <tr>
 					<td>Address Line 1:</td>
 					<td><form:input path="address.addressLine1" /></td>
 				</tr>
@@ -46,7 +46,7 @@
 				</tr> --%>
 				<tr>
 					<td colspan="2" align="center"><input type="submit"
-						value="Sign Up" /></td>
+						name="action" value="Sign Up" /></td>
 				</tr>
 			</table>
 		</form:form>
