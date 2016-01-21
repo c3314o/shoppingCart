@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +56,25 @@ public class InventoryServiceImpl implements InventoryService {
 				.setParameter("inventoryId", inventoryId)
 				.setParameter("isInCart", isInCart).executeUpdate();
 		trans.commit();
+	}
+
+	@Override
+	public List getAllProductsInCart() {
+		Transaction trans = sessionFactory.getCurrentSession()
+				.beginTransaction();
+		session = sessionFactory.openSession();
+		return session.createCriteria(Inventory.class)
+				.add(Restrictions.eq("isInCart", "YES"))
+				.add(Restrictions.ne("status", "RETAIL")).list();
+	}
+
+	@Override
+	public void purchaseProduct(int inventoryId, String status) {
+		int query = session
+				.createQuery(
+						"UPDATE Inventory set status = :status"
+								+ " where inventoryId = :inventoryId")
+				.setParameter("inventoryId", inventoryId)
+				.setParameter("status", status).executeUpdate();
 	}
 }

@@ -73,8 +73,7 @@
 </head>
 <body>
 	<h:body>
-		<form:form action="viewProduct" method="post"
-			commandName="viewProductForm">
+		<form:form action="/home" method="post">
 			<div>
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
 			</div>
@@ -87,9 +86,7 @@
 						<th>Brand</th>
 						<th>Color</th>
 						<th>Price</th>
-						<!-- <th>Status</th> -->
-						<th></th>
-						<th></th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -101,18 +98,7 @@
 							<td>${listValue.brand}</td>
 							<td>${listValue.color}</td>
 							<td>${listValue.price}</td>
-							<%-- <td>${listValue.status}</td> --%>
-							<!-- TODO: Display status only if the item is out of stock-->
-							<td><a
-								href="<c:url value='/addToCart/${listValue.inventoryId}' />">Add
-									To Cart</a> <%-- <c:choose><c:when test="${condition1}">
-									</c:when>
-									<c:otherwise>
-										
-									</c:otherwise>
-								</c:choose> --%> <a
-								href="<c:url value='/removeFromCart/${listValue.inventoryId}' />">Remove
-									from Cart</a></td>
+							<td>${listValue.status}</td>
 						</tr>
 					</c:forEach>
 				</tbody>

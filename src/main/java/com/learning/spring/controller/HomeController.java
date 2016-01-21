@@ -14,40 +14,37 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.learning.spring.Model.Inventory;
 
 @Controller("homeController")
-@RequestMapping("/shop")
-public class HomeController extends InventoryController {
+public class HomeController extends BaseController {
+
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String indexPage(Map<String, Object> model, ModelMap modelList) {
+		return "index";
+	}
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/viewProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String viewProduct(Map<String, Object> model, ModelMap modelList) {
 		List<Inventory> listOfProducts = inventoryService.getAllProducts();
 		modelList.addAttribute("listOfProducts", listOfProducts);
 		Inventory viewProductForm = new Inventory();
 		model.put("viewProductForm", viewProductForm);
 		model.put("completeItemList", getAllList());
-		return "view_product";
+		return "home";
 	}
 
 	@RequestMapping(value = "/addToCart/{inventoryId}")
 	public String addToCart(@PathVariable("inventoryId") int id,
 			Map<String, Object> model, ModelMap map) {
 		inventoryService.updateCartField(id, "YES");
-		return "redirect:/viewProduct";
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/removeFromCart/{inventoryId}")
 	public String removeFromCart(@PathVariable("inventoryId") int id,
 			Map<String, Object> model, ModelMap map) {
 		inventoryService.updateCartField(id, "NO");
-		return "redirect:/viewProduct";
+		return "redirect:/home";
 	}
-
-	/*
-	 * @RequestMapping(value = "/viewProduct", method = RequestMethod.GET)
-	 * public String getListForAutocomplete(Map<String, Object> model) {
-	 * model.put("completeItemList", getAllList()); return
-	 * "redirect:/viewProduct"; }
-	 */
 
 	@RequestMapping(value = "/searchList", method = RequestMethod.GET, headers = "Accept=*/*")
 	public @ResponseBody List<String> getListForAutocomplete(
@@ -55,14 +52,16 @@ public class HomeController extends InventoryController {
 		return getAllList();
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/search-{searchValue}", method = RequestMethod.GET)
-	public String searchProduct(Map<String, Object> model, ModelMap modelList) {
-		List<Inventory> listOfProducts = inventoryService.getAllProducts();
-		modelList.addAttribute("listOfProducts", listOfProducts);
-		Inventory viewProductForm = new Inventory();
-		model.put("viewProductForm", viewProductForm);
-		return "view_product";
-	}
+	/*
+	 * @SuppressWarnings("unchecked")
+	 * 
+	 * @RequestMapping(value = "/search-{searchValue}", method =
+	 * RequestMethod.GET) public String searchProduct(Map<String, Object> model,
+	 * ModelMap modelList) { List<Inventory> listOfProducts =
+	 * inventoryService.getAllProducts();
+	 * modelList.addAttribute("listOfProducts", listOfProducts); Inventory
+	 * viewProductForm = new Inventory(); model.put("viewProductForm",
+	 * viewProductForm); return "view_product"; }
+	 */
 
 }
