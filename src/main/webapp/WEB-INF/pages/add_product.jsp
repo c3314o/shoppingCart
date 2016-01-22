@@ -11,6 +11,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add Inventory</title>
+<!-- <link rel="stylesheet" href="../css/home.css"> -->
+<link
+	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <style>
 .error {
 	color: #ff0000;
@@ -20,6 +26,22 @@
 .msg {
 	color: #31708f;
 	font-weight: bold;
+}
+
+.generic-container {
+	position: fixed;
+	width: 45%;
+	margin-left: 500px;
+	margin-top: 100px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: #EAE7E7;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0 0 30px black;
+	margin-bottom: 20px;
+	margin-left: 200px;
+	/* overflow: auto */
 }
 }
 </style>
@@ -41,83 +63,73 @@
 			alert("Form has been submitted");
 		}
 	</script>
-	<div align="center">
-		<form:form action="saveProduct" method="post"
-			commandName="productForm">
-			<table border="0">
-				<tr>
-					<td colspan="2" align="center"><h2>Add New Product</h2></td>
-				</tr>
-				<tr>
-					<td>Product Name:</td>
-					<td><form:input path="productName" /></td>
-					<td><form:errors path="productName" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td>Category:</td>
-					<td><form:select path="category" title="category"
-							id="category">
-							<form:option value="">--Select--</form:option>
-							<form:options items="${listOfCategories}" />
-						</form:select></td>
-					<td><form:errors path="category" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td>Brand:</td>
-					<td><form:select path="brand" title="brand">
-							<form:option value="">--Select--</form:option>
-							<form:options items="${listOfBrands}" />
-						</form:select></td>
-					<td><form:errors path="brand" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td>Color:</td>
-					<td><form:select path="color" title="color">
-							<form:option value="">--Select--</form:option>
-							<form:options items="${listOfColors}" />
-						</form:select></td>
-					<td><form:errors path="color" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td>Model Number:</td>
-					<td><form:input path="modelNumber" /></td>
-					<td><form:errors path="modelNumber" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td>Price:</td>
-					<td>Rs.<form:input path="price"
-							onkeypress='return (event.charCode = 46 || event.charCode >= 48) && event.charCode <= 57' /></td>
-					<td><form:errors path="price" cssClass="error" /></td>
-				</tr>
-				<tr>
-					<td><form:hidden path="status" /></td>
-				</tr>
-				<tr>
-					<td><form:hidden path="isActive" /></td>
-				</tr>
-				<tr>
-					<td><form:hidden path="isInCart" /></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><input type="submit"
-						name="action" value="Save Product" />
-				</tr>
-				<%-- 	<tr>
+	<form:form action="saveProduct" method="post" commandName="productForm">
+		<jsp:include page="index.jsp"></jsp:include>
+		<div class="generic-container" align="center">
+			<div class="panel panel-default">
+				<div class="panel-heading" align="center">
+					<span class="lead">Add New Product</span>
+				</div>
+				<table class="table table-hover">
+					<tr>
+						<td>Product Name:</td>
+						<td><form:input path="productName" /></td>
+						<td><form:errors path="productName" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td>Category:</td>
+						<td><form:select path="category" title="category"
+								id="category">
+								<form:option value="">--Select--</form:option>
+								<form:options items="${listOfCategories}" />
+							</form:select></td>
+						<td><form:errors path="category" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td>Brand:</td>
+						<td><form:select path="brand" title="brand">
+								<form:option value="">--Select--</form:option>
+								<form:options items="${listOfBrands}" />
+							</form:select></td>
+						<td><form:errors path="brand" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td>Color:</td>
+						<td><form:select path="color" title="color">
+								<form:option value="">--Select--</form:option>
+								<form:options items="${listOfColors}" />
+							</form:select></td>
+						<td><form:errors path="color" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td>Model Number:</td>
+						<td><form:input path="modelNumber" /></td>
+						<td><form:errors path="modelNumber" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td>Rs.<form:input path="price"
+								onkeypress='return (event.charCode = 46 || event.charCode >= 48) && event.charCode <= 57' /></td>
+						<td><form:errors path="price" cssClass="error" /> <form:hidden
+								path="status" /> <form:hidden path="isActive" /> <form:hidden
+								path="isInCart" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" name="action" value="Save Product" />
+						<td><a href="<c:url value='/viewProduct' />">View All
+								Products</a></td>
+						<td><a href="<c:url value='/saveProduct' />">Clear </a></td>
+
+					</tr>
+					<%-- 	<tr>
 					<c:if test="${not empty message}">
 						<div class="msg">${message}</div>
 					</c:if>
 				</tr> --%>
-			</table>
-		</form:form>
-
-		<form:form action="viewProduct" method="get">
-			<table align="center">
-				<tr>
-					<td colspan="2"><a href="<c:url value='/viewProduct' />">View
-							All Products</a></td>
-				</tr>
-			</table>
-		</form:form>
-	</div>
+				</table>
+			</div>
+		</div>
+	</form:form>
 </body>
 </html>

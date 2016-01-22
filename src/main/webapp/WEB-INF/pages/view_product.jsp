@@ -10,10 +10,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Inventory Page</title>
-
+<!-- <link rel="stylesheet" href="../css/home.css"> -->
 <link
 	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -29,80 +31,79 @@
 			source : '${pageContext.request.contextPath}/searchList'
 		});
 	}); */
-
-	function split(val) {
-		return val.split(/,\s*/);
-	}
-	function extractLast(term) {
-		return split(term).pop();
-	}
-
-	$(document).ready(function() {
-
-		$("#ceos").autocomplete({
-			source : '${pageContext.request.contextPath}/searchList'
-		});
-
-		$("#companies").autocomplete({
-			source : function(request, response) {
-				$.getJSON("${pageContext.request.contextPath}/searchList", {
-					term : extractLast(request.term)
-				}, response);
-			},
-			search : function() {
-				var term = extractLast(this.value);
-				if (term.length < 1) {
-					return false;
-				}
-			},
-			focus : function() {
-				return false;
-			},
-			select : function(event, ui) {
-				var terms = split(this.value);
-				terms.pop();
-				terms.push(ui.item.value);
-				terms.push("");
-				this.value = terms.join(", ");
-				return false;
-			}
-		});
-
-	});
+});
 </script>
+<style type="text/css">
+.generic-container {
+	position: fixed;
+	width: 80%;
+	margin-left: 200px;
+	margin-top: 100px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: #EAE7E7;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0 0 30px black;
+	margin-bottom: 20px;
+	margin-left: 200px;
+}
+
+.search-container {
+	position: fixed;
+	width: 15%;
+	margin-top: 100px;
+	margin-left: 1250px;
+	margin-bottom: 20px;
+	padding: 2px;
+	background-color: #EAE7E7 !important;
+	border: 1px solid #ddd !important;
+	border-radius: 4px;
+	box-shadow: 0 0 30px black;
+	margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
+	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
-		<form:form action="/home" method="post">
-			<div>
+		<form:form action="viewProduct" method="get">
+			<div class="search-container">
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
 			</div>
-			<h3 align="center">View Product Details</h3>
-			<table align="center">
-				<thead>
-					<tr>
-						<th>Product Name</th>
-						<th>Category</th>
-						<th>Brand</th>
-						<th>Color</th>
-						<th>Price</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="listValue" items="${listOfProducts}"
-						varStatus="status">
-						<tr id="listId${status.index}">
-							<td>${listValue.productName}</td>
-							<td>${listValue.category}</td>
-							<td>${listValue.brand}</td>
-							<td>${listValue.color}</td>
-							<td>${listValue.price}</td>
-							<td>${listValue.status}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+			<div class="generic-container">
+				<div class="panel panel-default"
+					style="height: 500px; overflow-y: auto;">
+					<div class="panel-heading" align="center">
+						<span class="lead">View Product Details</span>
+					</div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Product Name</th>
+								<th>Category</th>
+								<th>Brand</th>
+								<th>Color</th>
+								<th>Price</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="listValue" items="${listOfProducts}"
+								varStatus="status">
+								<tr id="listId${status.index}">
+									<td>${listValue.productName}</td>
+									<td>${listValue.category}</td>
+									<td>${listValue.brand}</td>
+									<td>${listValue.color}</td>
+									<td>${listValue.price}</td>
+									<td>${listValue.status}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</form:form>
 	</h:body>
 </body>

@@ -1,6 +1,7 @@
 package com.learning.spring.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class BaseController {
 		listOfColors.add("Yellow");
 		listOfColors.add("Pink");
 
+		Collections.sort(listOfColors);
 		return listOfColors;
 	}
 
@@ -30,6 +32,8 @@ public class BaseController {
 		List<String> completeItemList = new ArrayList<String>();
 		completeItemList.addAll(getCategoryList());
 		completeItemList.addAll(getBrandsList("All"));
+
+		Collections.sort(completeItemList);
 		return completeItemList;
 	}
 
@@ -39,6 +43,7 @@ public class BaseController {
 		listOfCategories.add("Watches");
 		listOfCategories.add("Footwear");
 
+		Collections.sort(listOfCategories);
 		return listOfCategories;
 	}
 
@@ -60,22 +65,22 @@ public class BaseController {
 		listOfFootwearBrands.add("Catwalk");
 
 		List<String> listOfBrands = new ArrayList<String>();
-		listOfBrands.addAll(listOfHandbagBrands);
-		listOfBrands.addAll(listOfWatchBrands);
-		listOfBrands.addAll(listOfFootwearBrands);
 
 		if (StringUtils.hasText(selectedCategory)) {
 			if (selectedCategory.equals("Handbags")) {
-				return listOfHandbagBrands;
+				listOfBrands.addAll(listOfHandbagBrands);
 			} else if (selectedCategory.equals("Watches")) {
-				return listOfWatchBrands;
+				listOfBrands.addAll(listOfWatchBrands);
 			} else if (selectedCategory.equals("Footwear")) {
-				return listOfFootwearBrands;
+				listOfBrands.addAll(listOfFootwearBrands);
 			} else {
-				return listOfBrands;
+				listOfBrands.addAll(listOfHandbagBrands);
+				listOfBrands.addAll(listOfWatchBrands);
+				listOfBrands.addAll(listOfFootwearBrands);
 			}
 		}
 
+		Collections.sort(listOfBrands);
 		return listOfBrands;
 	}
 }

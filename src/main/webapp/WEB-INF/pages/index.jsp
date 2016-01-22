@@ -39,14 +39,14 @@
 							<li><a href="<c:url value='/home' />">Update Profile</a></li>
 							<li><a href="#">Order Details</a></li>
 						</ul></li>
-					<li><a href="#">Cart</a></li>
+					<li><a href="<c:url value='/cart' />">Cart</a></li>
 				</ul>
 			</div>
 		</nav>
 		<div class="container">
 			<h3>Welcome to Fabulosa,</h3>
-			<p>The real trouble with reality is that there's no background
-				music.</p>
+			<!-- 	<p>The real trouble with reality is that there's no background
+				music.</p> -->
 		</div>
 	</form:form>
 </body>

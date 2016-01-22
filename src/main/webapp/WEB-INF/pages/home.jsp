@@ -35,7 +35,7 @@
 	position: fixed;
 	width: 80%;
 	margin-left: 200px;
-	margin-top: 200px;
+	margin-top: 100px;
 	margin-bottom: 20px;
 	padding: 20px;
 	background-color: #EAE7E7;
@@ -43,6 +43,8 @@
 	border-radius: 4px;
 	box-shadow: 0 0 30px black;
 	margin-bottom: 20px;
+	margin-left: 200px;
+	/* overflow: auto */
 }
 
 .search-container {
@@ -61,6 +63,7 @@
 </style>
 </head>
 <body>
+	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
 		<form:form action="/viewProduct" method="post"
 			commandName="viewProductForm">
@@ -68,10 +71,10 @@
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
 			</div>
 			<div class="generic-container">
-				<div class="panel panel-default">
-					<!-- Default panel contents -->
+				<div class="panel panel-default"
+					style="height: 500px; overflow-y: auto;">
 					<div class="panel-heading" align="center">
-						<span class="lead">View Product Details</span>
+						<span class="lead">Fashion and more...</span>
 					</div>
 					<table class="table table-hover">
 						<thead>
@@ -81,12 +84,10 @@
 								<th>Brand</th>
 								<th>Color</th>
 								<th>Price</th>
-								<!-- <th>Status</th> -->
-								<th></th>
 								<th></th>
 							</tr>
 						</thead>
-						<tbody style="overflow-y: auto;">
+						<tbody>
 							<c:forEach var="listValue" items="${listOfProducts}"
 								varStatus="status">
 								<tr id="listId${status.index}">
@@ -95,18 +96,19 @@
 									<td>${listValue.brand}</td>
 									<td>${listValue.color}</td>
 									<td>${listValue.price}</td>
-									<%-- <td>${listValue.status}</td> --%>
-									<!-- TODO: Display status only if the item is out of stock-->
-									<td><a
-										href="<c:url value='/addToCart/${listValue.inventoryId}' />">Add
-											To Cart</a> <%-- <c:choose><c:when test="${condition1}">
-									</c:when>
-									<c:otherwise>
-										
-									</c:otherwise>
-								</c:choose> --%> <a
-										href="<c:url value='/removeFromCart/${listValue.inventoryId}' />">Remove
-											from Cart</a></td>
+									<td><c:if
+											test="${listValue.status =='STOCK' && listValue.isInCart == 'NO'}">
+											<a
+												href="<c:url value='/addToCart/${listValue.inventoryId}' />">Add
+												To Cart</a>
+										</c:if> <c:if
+											test="${listValue.status =='STOCK' && listValue.isInCart == 'YES'}">
+											<a
+												href="<c:url value='/removeFromCart/${listValue.inventoryId}' />">Remove
+												from Cart</a>
+										</c:if> <c:if test="${listValue.status =='RETAIL'}">
+											<c:out value="Out of Stock" />
+										</c:if></td>
 								</tr>
 							</c:forEach>
 						</tbody>

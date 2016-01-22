@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,8 @@ public class InventoryServiceImpl implements InventoryService {
 		session = sessionFactory.openSession();
 		return session.createCriteria(Inventory.class)
 				.add(Restrictions.eq("isInCart", "YES"))
-				.add(Restrictions.ne("status", "RETAIL")).list();
+				.add(Restrictions.ne("status", "RETAIL"))
+				.addOrder(Order.asc("productName")).list();
 	}
 
 	@Override

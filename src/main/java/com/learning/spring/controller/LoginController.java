@@ -25,7 +25,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerUser(@ModelAttribute("userForm") User user, Map<String, Object> map) {
+	public String registerUser(@ModelAttribute("userForm") User user,
+			Map<String, Object> map) {
 
 		User userDetail = new User();
 		loginService.addUser(user);
@@ -34,13 +35,4 @@ public class LoginController {
 		return "customer_detail";
 	}
 
-	/*
-	 * @RequestMapping(value = "/register", method = RequestMethod.POST) public
-	 * String registerUser(@ModelAttribute User user, BindingResult result,
-	 * 
-	 * @RequestParam String action, Map<String, Object> map) {
-	 * 
-	 * User userDetail = new User(); loginService.addUser(user); userDetail =
-	 * user; map.put("user", userDetail); return "signup-success"; }
-	 */
 }

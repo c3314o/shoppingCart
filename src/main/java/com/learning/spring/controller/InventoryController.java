@@ -1,5 +1,6 @@
 package com.learning.spring.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +37,7 @@ public class InventoryController extends BaseController {
 	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
 	public String saveProduct(
 			@ModelAttribute("productForm") Inventory inventory,
-			BindingResult result,
-			@RequestParam(value = "message") String message,
-			Map<String, Object> model, ModelMap map) {
+			BindingResult result, Map<String, Object> model, ModelMap map) {
 
 		boolean error = false;
 		if (!StringUtils.hasText(inventory.getProductName())) {

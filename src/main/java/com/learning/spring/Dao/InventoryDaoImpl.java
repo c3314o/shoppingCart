@@ -45,8 +45,7 @@ public class InventoryDaoImpl implements InventoryDao {
 	@Override
 	public List getAllProducts() {
 		sessionFactory.getCurrentSession().beginTransaction();
-		return sessionFactory.getCurrentSession().createQuery("from Inventory")
-				.list();
+		return sessionFactory.getCurrentSession()
+				.createQuery("from Inventory order by productName").list();
 	}
-
 }

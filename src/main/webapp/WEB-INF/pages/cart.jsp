@@ -11,9 +11,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Inventory Page</title>
 
+<!-- <link rel="stylesheet" href="../css/home.css"> -->
 <link
 	href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -22,41 +25,72 @@
 	
 </script>
 <style>
-table {
+/* table {
 	border-collapse: collapse;
 }
 
 table, td, th {
 	border: 1px solid black;
+} */
+.generic-container {
+	position: fixed;
+	width: 80%;
+	margin-left: 100px;
+	margin-top: 200px;
+	margin-bottom: 20px;
+	padding: 20px;
+	background-color: #EAE7E7;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0 0 30px black;
+	margin-bottom: 20px;
+	margin-left: 200px;
+	/* overflow: auto */
 }
 </style>
 </head>
 <body>
+	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
 		<form:form action="cart" method="post" commandName="cartForm">
-			<h3 align="center">Cart Details</h3>
-			<table align="center">
-				<tbody>
-					<c:forEach var="listValue" items="${listOfProducts}"
-						varStatus="status">
+			<div class="generic-container">
+				<div class="panel panel-default"
+					style="height: 500px; overflow-y: auto;">
+					<div class="panel-heading" align="center">
+						<span class="lead">Cart Details</span>
+					</div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Product Name</th>
+								<th>Price</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="listValue" items="${listOfProducts}"
+								varStatus="status">
+								<tr>
+									<td>${listValue.productName}</td>
+									<td>${listValue.price}</td>
+									<td><a
+										href="<c:url value='/remove/${listValue.inventoryId}' />">Remove
+											from Cart</a></td>
+								</tr>
+								<tr>
+
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<table class="table table-hover" align="center">
 						<tr>
-							<td>${listValue.productName}</td>
-							<td>${listValue.price}</td>
-							<td><a
-								href="<c:url value='/remove/${listValue.inventoryId}' />">Remove
-									from Cart</a></td>
+							<td><a href="<c:url value='/purchase' />">Purchase</a></td>
+							<td><a href="<c:url value='/home' />">Continue Shopping</a></td>
 						</tr>
-						<tr></tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<table align="center">
-				<tr>
-					<td colspan="2"><a href="<c:url value='/purchase' />">Purchase</a></td>
-					<td colspan="2"><a href="<c:url value='/home' />">Continue
-							Shopping</a></td>
-				</tr>
-			</table>
+					</table>
+				</div>
+			</div>
 		</form:form>
 	</h:body>
 </body>
