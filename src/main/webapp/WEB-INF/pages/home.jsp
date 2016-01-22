@@ -65,8 +65,7 @@
 <body>
 	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
-		<form:form action="/viewProduct" method="post"
-			commandName="viewProductForm">
+		<form:form action="/home" method="post" commandName="viewProductForm">
 			<div class="search-container">
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
 			</div>
