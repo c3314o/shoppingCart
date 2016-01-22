@@ -35,8 +35,8 @@ table, td, th {
 .generic-container {
 	position: fixed;
 	width: 80%;
-	margin-left: 100px;
-	margin-top: 200px;
+	margin-left: 200px;
+	margin-top: 100px;
 	margin-bottom: 20px;
 	padding: 20px;
 	background-color: #EAE7E7;
