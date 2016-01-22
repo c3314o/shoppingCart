@@ -59,12 +59,12 @@
 			}).trigger('change');
 		}); */
 
-		function saveSuccess() {
-			alert("Form has been submitted");
-		}
+		/* 	function saveSuccess() {
+				alert("Form has been submitted");
+			} */
 	</script>
+	<jsp:include page="index.jsp"></jsp:include>
 	<form:form action="saveProduct" method="post" commandName="productForm">
-		<jsp:include page="index.jsp"></jsp:include>
 		<div class="generic-container" align="center">
 			<div class="panel panel-default">
 				<div class="panel-heading" align="center">

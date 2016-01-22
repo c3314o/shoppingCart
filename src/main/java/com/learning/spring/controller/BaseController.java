@@ -14,6 +14,30 @@ public class BaseController {
 	@Autowired
 	public InventoryService inventoryService;
 
+	public List<String> searchList(String name) {
+		String inputText = "";
+		List<String> matchedList = new ArrayList<String>();
+
+		for (int i = 0; i < getAllList().size(); i++) {
+			inputText = getAllList().get(i).toLowerCase();
+			if (inputText.startsWith(name.toLowerCase())) {
+				matchedList.add(getAllList().get(i));
+			}
+		}
+
+		return matchedList;
+	}
+
+	public List<String> getAllList() {
+		List<String> completeItemList = new ArrayList<String>();
+		completeItemList.addAll(getCategoryList());
+		completeItemList.addAll(getColorList());
+		completeItemList.addAll(getBrandsList("All"));
+
+		Collections.sort(completeItemList);
+		return completeItemList;
+	}
+
 	public List<String> getColorList() {
 		List<String> listOfColors = new ArrayList<String>();
 		listOfColors.add("Red");
@@ -26,15 +50,6 @@ public class BaseController {
 
 		Collections.sort(listOfColors);
 		return listOfColors;
-	}
-
-	public List<String> getAllList() {
-		List<String> completeItemList = new ArrayList<String>();
-		completeItemList.addAll(getCategoryList());
-		completeItemList.addAll(getBrandsList("All"));
-
-		Collections.sort(completeItemList);
-		return completeItemList;
 	}
 
 	public List<String> getCategoryList() {

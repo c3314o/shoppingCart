@@ -8,8 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.learning.spring.Model.Inventory;
 
@@ -46,11 +44,12 @@ public class HomeController extends BaseController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping(value = "/searchList", method = RequestMethod.GET, headers = "Accept=*/*")
-	public @ResponseBody List<String> getListForAutocomplete(
-			@RequestParam("term") String query) {
-		return getAllList();
-	}
+	// @RequestMapping(value = "/searchList", method = RequestMethod.GET,
+	// headers = "Accept=*/*")
+	// public @ResponseBody List<String> getListForAutocomplete(
+	// @RequestParam("term") String query) {
+	// return searchList(query);
+	// }
 
 	/*
 	 * @SuppressWarnings("unchecked")

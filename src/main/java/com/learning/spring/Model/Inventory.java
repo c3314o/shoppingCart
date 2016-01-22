@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.learning.spring.vo.SearchVO;
 
 @Entity
 @Table(name = "INVENTORY")
@@ -46,6 +49,10 @@ public class Inventory {
 
 	@Column(name = "MODEL_NUMBER")
 	private String modelNumber;
+
+	/*
+	 * @Transient private SearchVO searchVO;
+	 */
 
 	/*
 	 * @Column(name = "FILENAME") private String filename;
@@ -153,4 +160,10 @@ public class Inventory {
 	public void setModelNumber(String modelNumber) {
 		this.modelNumber = modelNumber;
 	}
+
+	/*
+	 * public SearchVO getSearchVO() { return searchVO; }
+	 * 
+	 * public void setSearchVO(SearchVO searchVO) { this.searchVO = searchVO; }
+	 */
 }

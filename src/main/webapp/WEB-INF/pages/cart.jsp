@@ -85,7 +85,9 @@ table, td, th {
 					</table>
 					<table class="table table-hover" align="center">
 						<tr>
-							<td><a href="<c:url value='/purchase' />">Purchase</a></td>
+							<td><c:if test="${not empty listOfProducts}">
+									<a href="<c:url value='/purchase' />">Purchase</a>
+								</c:if></td>
 							<td><a href="<c:url value='/home' />">Continue Shopping</a></td>
 						</tr>
 					</table>

@@ -67,7 +67,7 @@ public class InventoryServiceImpl implements InventoryService {
 		return session.createCriteria(Inventory.class)
 				.add(Restrictions.eq("isInCart", "YES"))
 				.add(Restrictions.ne("status", "RETAIL"))
-				.addOrder(Order.asc("productName")).list();
+				.addOrder(Order.asc("productName").ignoreCase()).list();
 	}
 
 	@Override

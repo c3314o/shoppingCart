@@ -19,16 +19,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript">
-	 $(function() {
-		$("#automplete-3").autocomplete({
-			minLength : 2,
-			delay : 100,
+	/* $(document).ready(function() {
+		$("#searchId").autocomplete({
 			source : '${pageContext.request.contextPath}/searchList'
 		});
-	}); 
-});
+	}); */
 </script>
 <style type="text/css">
 .generic-container {
@@ -50,7 +47,7 @@
 .search-container {
 	position: fixed;
 	width: 15%;
-	margin-top: 100px;
+	margin-top: 65px;
 	margin-left: 1250px;
 	margin-bottom: 20px;
 	padding: 2px;
@@ -66,9 +63,10 @@
 	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
 		<form:form action="/home" method="post" commandName="viewProductForm">
-			<div class="search-container">
-				<label for="automplete-3">Search: </label> <input id="automplete-3">
-			</div>
+			<%-- 	<div class="search-container">
+				<label><b>Search:</b></label>
+				<form:input id="searchId" path="searchVO.name" />
+			</div> --%>
 			<div class="generic-container">
 				<div class="panel panel-default"
 					style="height: 500px; overflow-y: auto;">

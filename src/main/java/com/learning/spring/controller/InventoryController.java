@@ -1,6 +1,5 @@
 package com.learning.spring.controller;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.learning.spring.Model.Inventory;
 import com.learning.spring.Service.InventoryService;

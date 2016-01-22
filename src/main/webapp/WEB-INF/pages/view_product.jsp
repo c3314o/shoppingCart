@@ -68,9 +68,9 @@
 	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
 		<form:form action="viewProduct" method="get">
-			<div class="search-container">
+		<!-- 	<div class="search-container">
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
-			</div>
+			</div> -->
 			<div class="generic-container">
 				<div class="panel panel-default"
 					style="height: 500px; overflow-y: auto;">
