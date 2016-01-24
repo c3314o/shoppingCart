@@ -18,17 +18,11 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	<tx:annotation-driven />
-	
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages" />
 	</bean>
-
-	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<property name="prefix"> <value>/WEB-INF/pages/</value> </property> <property 
-		name="suffix"> <value>.jsp</value> </property> </bean> -->
-	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" 
-		p:location="/WEB-INF/db.properties" /> -->
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
@@ -48,6 +42,7 @@
 				<value>com.learning.spring.Model.User</value>
 				<value>com.learning.spring.Model.Address</value>
 				<value>com.learning.spring.Model.Inventory</value>
+				<value>com.learning.spring.Model.Role</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -73,5 +68,7 @@
 	</bean>
 
 	<!-- <bean id="userDao" class="com.learning.spring.Dao.UserDaoImpl"> <property 
-		name="session" ref="hibernate4AnnotatedSessionFactory" /> </bean> -->
+		name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" /> </bean> -->
+	<!-- <bean id="userService" class="com.learning.spring.Service.UserServiceImpl"> 
+		<property name="userDao" ref="transactionManager" /> </bean> -->
 </beans>
