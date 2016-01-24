@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import com.learning.spring.Service.InventoryService;
+import com.learning.spring.Service.UserService;
 
 public class BaseController {
 
 	@Autowired
 	public InventoryService inventoryService;
+
+	@Autowired
+	public UserService userService;
 
 	public List<String> searchList(String name) {
 		String inputText = "";

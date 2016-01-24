@@ -1,6 +1,5 @@
 package com.learning.spring.Model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-//@Data
-//@NoArgsConstrimport javax.persisten
-//@AllArgsConstructor
 @Entity
 @Table(name = "USER_DETAILS")
 public class User {
@@ -39,22 +35,29 @@ public class User {
 	@Column(name = "USER_PASSWORD")
 	private String password;
 
-	/*
-	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "USER_DETAILS") private
-	 * Set<Address> address = new HashSet<Address>();
-	 */
+	@Column(name = "ENABLED")
+	private int enabled;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
+	private Set<Role> role = new HashSet<Role>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Address> address = new HashSet<Address>();
 
 	public User() {
 	}
 
 	public User(int userId, String firstname, String lastname, String username,
-			String password) {
+			String password, int enabled, Set<Role> role, Set<Address> address) {
 		super();
 		this.userId = userId;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
+		this.enabled = enabled;
+		this.role = role;
+		this.address = address;
 	}
 
 	public String getFirstname() {
@@ -95,5 +98,29 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
+	public Set<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(Set<Role> role) {
+		this.role = role;
+	}
+
+	public Set<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(Set<Address> address) {
+		this.address = address;
 	}
 }

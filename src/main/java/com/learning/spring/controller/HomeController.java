@@ -1,5 +1,6 @@
 package com.learning.spring.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,19 +15,17 @@ import com.learning.spring.Model.Inventory;
 @Controller("homeController")
 public class HomeController extends BaseController {
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String indexPage(Map<String, Object> model, ModelMap modelList) {
-		return "index";
-	}
-
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String viewProduct(Map<String, Object> model, ModelMap modelList) {
+	public String viewProduct(Map<String, Object> model, ModelMap modelList,
+			Principal principal) {
 		List<Inventory> listOfProducts = inventoryService.getAllProducts();
 		modelList.addAttribute("listOfProducts", listOfProducts);
 		Inventory viewProductForm = new Inventory();
 		model.put("viewProductForm", viewProductForm);
 		model.put("completeItemList", getAllList());
+//		String user = principal.getName();
+//		userService.isLoggedInUserAdmin(user);
 		return "home";
 	}
 

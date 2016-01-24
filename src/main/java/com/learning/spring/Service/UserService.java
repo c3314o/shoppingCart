@@ -2,9 +2,10 @@ package com.learning.spring.Service;
 
 import java.util.List;
 
+import com.learning.spring.Model.Role;
 import com.learning.spring.Model.User;
 
-public interface LoginService {
+public interface UserService {
 
 	public void addUser(User user);
 
@@ -15,4 +16,8 @@ public interface LoginService {
 	public User getUser(int userId);
 
 	public List getAllUser(int userId);
+
+	// public Boolean isLoggedInUserAdmin(String username);
+
+	public void saveRole(Role role);
 }

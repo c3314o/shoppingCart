@@ -30,36 +30,16 @@ public class Address {
 	private String city;
 
 	@Column(name = "STATE_CODE")
-	private int stateCode;
+	private String stateCode;
 
 	@Column(name = "ZIP_CODE")
 	private int zipCode;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false)
-	private User userId;
+	private User user;
 
 	public Address() {
-	}
-
-	public Address(int addressId, String addressLine1, String addressLine2,
-			String city, int stateCode, int zipCode, User userId) {
-		super();
-		this.addressId = addressId;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.city = city;
-		this.stateCode = stateCode;
-		this.zipCode = zipCode;
-		this.userId = userId;
-	}
-
-	public User getUserId() {
-		return userId;
-	}
-
-	public void setUserId(User userId) {
-		this.userId = userId;
 	}
 
 	public String getCity() {
@@ -94,11 +74,11 @@ public class Address {
 		this.addressId = addressId;
 	}
 
-	public int getStateCode() {
+	public String getStateCode() {
 		return stateCode;
 	}
 
-	public void setStateCode(int stateCode) {
+	public void setStateCode(String stateCode) {
 		this.stateCode = stateCode;
 	}
 
@@ -108,6 +88,14 @@ public class Address {
 
 	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
