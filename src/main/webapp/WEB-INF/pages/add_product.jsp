@@ -24,7 +24,7 @@
 }
 
 .msg {
-	color: #31708f;
+	color: #006600;
 	font-weight: bold;
 }
 
@@ -112,21 +112,34 @@
 								onkeypress='return (event.charCode = 46 || event.charCode >= 48) && event.charCode <= 57' /></td>
 						<td><form:errors path="price" cssClass="error" /> <form:hidden
 								path="status" /> <form:hidden path="isActive" /> <form:hidden
-								path="isInCart" /></td>
+								path="inventoryId" /></td>
+					</tr>
+					<tr>
+						<td>Quantity:</td>
+						<td><form:input path="quantity"
+								onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+								maxlength="3" /></td>
+						<%-- <td><form:errors path="modelNumber" cssClass="error" /></td> --%>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" name="action" value="Save Product" />
+						<td>
+							<!-- <input type="submit" name="action" value="Save Product" /> -->
+							<c:if test="${!edit}">
+								<input type="submit" value="Save Product" />
+							</c:if> <c:if test="${edit}">
+								<input type="submit" value="Update Product" />
+							</c:if>
+						</td>
 						<td><a href="<c:url value='/viewProduct' />">View All
 								Products</a></td>
 						<td><a href="<c:url value='/saveProduct' />">Clear </a></td>
-
 					</tr>
-					<%-- 	<tr>
-					<c:if test="${not empty message}">
-						<div class="msg">${message}</div>
-					</c:if>
-				</tr> --%>
+					<tr>
+						<td><c:if test="${not empty message}">
+								<div class="msg">${message}</div>
+							</c:if></td>
+					</tr>
 				</table>
 			</div>
 		</div>

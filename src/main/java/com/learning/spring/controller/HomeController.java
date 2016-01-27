@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,55 +12,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.learning.spring.Model.Inventory;
+import com.learning.spring.Model.User;
+import com.learning.spring.Service.InventoryService;
+import com.learning.spring.Service.ProductService;
+import com.learning.spring.Service.UserService;
+import com.learning.spring.vo.InventoryVO;
 
 @Controller("homeController")
 public class HomeController extends BaseController {
 
+	@Autowired
+	private InventoryService inventoryService;
+
+	@Autowired
+	public UserService userService;
+
+	@Autowired
+	public ProductService productService;
+
+	// @Autowired
+	// PurchaseService purchaseService;
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String viewProduct(Map<String, Object> model, ModelMap modelList,
-			Principal principal) {
-		List<Inventory> listOfProducts = inventoryService.getAllProducts();
+	public String viewProduct(Map<String, Object> model, ModelMap modelList) {
+		List<Inventory> listOfProducts = inventoryService
+				.getAllActiveProducts();
 		modelList.addAttribute("listOfProducts", listOfProducts);
-		Inventory viewProductForm = new Inventory();
+		InventoryVO viewProductForm = new InventoryVO();
 		model.put("viewProductForm", viewProductForm);
 		model.put("completeItemList", getAllList());
-//		String user = principal.getName();
-//		userService.isLoggedInUserAdmin(user);
 		return "home";
 	}
 
 	@RequestMapping(value = "/addToCart/{inventoryId}")
 	public String addToCart(@PathVariable("inventoryId") int id,
-			Map<String, Object> model, ModelMap map) {
-		inventoryService.updateCartField(id, "YES");
+			Map<String, Object> model, ModelMap map, Principal principal) {
+
+		User user = userService.getLoggedInUser(principal.getName());
+		productService.saveProductDetails(id, user);
 		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/removeFromCart/{inventoryId}")
 	public String removeFromCart(@PathVariable("inventoryId") int id,
 			Map<String, Object> model, ModelMap map) {
-		inventoryService.updateCartField(id, "NO");
+		inventoryService.deleteProductDetails(id);
 		return "redirect:/home";
 	}
-
-	// @RequestMapping(value = "/searchList", method = RequestMethod.GET,
-	// headers = "Accept=*/*")
-	// public @ResponseBody List<String> getListForAutocomplete(
-	// @RequestParam("term") String query) {
-	// return searchList(query);
-	// }
-
-	/*
-	 * @SuppressWarnings("unchecked")
-	 * 
-	 * @RequestMapping(value = "/search-{searchValue}", method =
-	 * RequestMethod.GET) public String searchProduct(Map<String, Object> model,
-	 * ModelMap modelList) { List<Inventory> listOfProducts =
-	 * inventoryService.getAllProducts();
-	 * modelList.addAttribute("listOfProducts", listOfProducts); Inventory
-	 * viewProductForm = new Inventory(); model.put("viewProductForm",
-	 * viewProductForm); return "view_product"; }
-	 */
-
 }

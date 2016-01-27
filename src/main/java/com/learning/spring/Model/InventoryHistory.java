@@ -1,8 +1,5 @@
 package com.learning.spring.Model;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,19 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "INVENTORY")
-public class Inventory {
+@Table(name = "INVENTORY_HISTORY")
+public class InventoryHistory {
 
 	@Id
-	@SequenceGenerator(name = "INVENTORY_SEQ", sequenceName = "INVENTORY_SEQ")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INVENTORY_SEQ")
-	@Column(name = "INVENTORY_ID")
-	private int inventoryId;
+	@SequenceGenerator(name = "INVENTORY_HISTORY_SEQ", sequenceName = "INVENTORY_HISTORY_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INVENTORY_HISTORY_SEQ")
+	@Column(name = "INVENTORY_HISTORY_ID")
+	private int inventoryHistoryId;
 
 	@Column(name = "PRODUCT_NAME")
 	private String productName;
@@ -52,17 +48,19 @@ public class Inventory {
 	@Column(name = "QUANTITY")
 	private int quantity;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "inventory")
-	private Set<InventoryHistory> history = new HashSet<InventoryHistory>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INVENTORY_ID", nullable = false)
+	private Inventory inventory;
 
-	public Inventory() {
+	public InventoryHistory() {
 	}
 
-	public Inventory(int inventoryId, String productName, String category,
-			String color, String brand, String status, Double price,
-			String isActive, String modelNumber) {
+	public InventoryHistory(int inventoryHistoryId, String productName,
+			String category, String color, String brand, String status,
+			Double price, String isActive, String modelNumber, int quantity,
+			Inventory inventory) {
 		super();
-		this.inventoryId = inventoryId;
+		this.inventoryHistoryId = inventoryHistoryId;
 		this.productName = productName;
 		this.category = category;
 		this.color = color;
@@ -71,6 +69,24 @@ public class Inventory {
 		this.price = price;
 		this.isActive = isActive;
 		this.modelNumber = modelNumber;
+		this.quantity = quantity;
+		this.inventory = inventory;
+	}
+
+	public int getInventoryHistoryId() {
+		return inventoryHistoryId;
+	}
+
+	public void setInventoryHistoryId(int inventoryHistoryId) {
+		this.inventoryHistoryId = inventoryHistoryId;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 	public String getStatus() {
@@ -79,14 +95,6 @@ public class Inventory {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public int getInventoryId() {
-		return inventoryId;
-	}
-
-	public void setInventoryId(int inventoryId) {
-		this.inventoryId = inventoryId;
 	}
 
 	public String getProductName() {
@@ -152,21 +160,5 @@ public class Inventory {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public Set<InventoryHistory> getHistory() {
-		return history;
-	}
-
-	public void setHistory(Set<InventoryHistory> history) {
-		this.history = history;
-	}
-
-	// public Product getProduct() {
-	// return product;
-	// }
-	//
-	// public void setProduct(Product product) {
-	// this.product = product;
-	// }
 
 }

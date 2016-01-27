@@ -62,8 +62,10 @@ table, td, th {
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Product Name</th>
-								<th>Price</th>
+								<th>Product</th>
+								<th>Quantity</th>
+								<th>Price/Quantity</th>
+								<th>Total Price</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -71,14 +73,15 @@ table, td, th {
 							<c:forEach var="listValue" items="${listOfProducts}"
 								varStatus="status">
 								<tr>
-									<td>${listValue.productName}</td>
-									<td>${listValue.price}</td>
+									<td><b>${listValue.inventory.productName}</b>(${listValue.inventory.category},
+										${listValue.inventory.brand},
+										${listValue.inventory.modelNumber})</td>
+									<td>${listValue.quantity}</td>
+									<td>${listValue.inventory.price}</td>
+									<td>${listValue.inventory.price * listValue.quantity}</td>
 									<td><a
-										href="<c:url value='/remove/${listValue.inventoryId}' />">Remove
+										href="<c:url value='/remove/${listValue.productId}' />">Remove
 											from Cart</a></td>
-								</tr>
-								<tr>
-
 								</tr>
 							</c:forEach>
 						</tbody>

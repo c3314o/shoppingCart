@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,7 +33,7 @@ public class InventoryController extends BaseController {
 	}
 
 	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
-	public String saveProduct(
+	public String saveUpdateProduct(
 			@ModelAttribute("productForm") Inventory inventory,
 			BindingResult result, Map<String, Object> model, ModelMap map) {
 
@@ -71,13 +72,20 @@ public class InventoryController extends BaseController {
 			return "add_product";
 		}
 
-		inventory.setIsInCart("NO");
-		inventory.setIsActive("YES");
-		inventory.setStatus("STOCK");
-		inventoryService.addProduct(inventory);
+		if (inventory.getInventoryId() < 1) {
+			inventory.setIsActive("YES");
+			inventory.setStatus("STOCK");
+			inventoryService.addProduct(inventory);
+			map.addAttribute("message", "Product is added successfully!!!");
+		} else {
+			inventoryService.updateProduct(inventory);
+			map.addAttribute("message", "Product is updated successfully!!!");
+		}
 
-		model.put("inventory", inventory);
-		return "redirect:/saveProduct";
+		model.put("listOfCategories", getCategoryList());
+		model.put("listOfBrands", getBrandsList("All"));
+		model.put("listOfColors", getColorList());
+		return "add_product";
 	}
 
 	@RequestMapping(value = "/viewProduct", method = RequestMethod.GET)
@@ -88,4 +96,29 @@ public class InventoryController extends BaseController {
 		return "view_product";
 	}
 
+	@RequestMapping(value = "/{inventoryId}", method = RequestMethod.GET)
+	public String editProduct(@PathVariable("inventoryId") int id,
+			Map<String, Object> model, ModelMap map) {
+
+		Inventory inventory = new Inventory();
+		inventory = inventoryService.getProduct(id);
+		map.addAttribute("productForm", inventory);
+		model.put("listOfCategories", getCategoryList());
+		model.put("listOfBrands", getBrandsList("All"));
+		model.put("listOfColors", getColorList());
+		map.addAttribute("edit", true);
+
+		return "add_product";
+	}
+
+	@RequestMapping(value = "/delete/{inventoryId}", method = RequestMethod.GET)
+	public String deleteProduct(@PathVariable("inventoryId") int id,
+			ModelMap map) {
+
+		Inventory inventory = new Inventory();
+		inventory = inventoryService.getProduct(id);
+		inventoryService.deleteProduct(inventory);
+		map.addAttribute("message", "Product is deleted successfully!!!");
+		return "redirect:/viewProduct";
+	}
 }

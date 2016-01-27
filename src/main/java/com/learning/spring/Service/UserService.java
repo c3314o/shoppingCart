@@ -17,7 +17,9 @@ public interface UserService {
 
 	public List getAllUser(int userId);
 
-	// public Boolean isLoggedInUserAdmin(String username);
-
 	public void saveRole(Role role);
+
+	User getLoggedInUser(String username);
+
+	// public Boolean isLoggedInUserAdmin(String username);
 }

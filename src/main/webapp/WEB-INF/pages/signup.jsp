@@ -70,7 +70,8 @@
 						<tr>
 							<td>Password:</td>
 							<td><form:password path="user.password" /></td>
-							<td><form:errors path="user.password" cssClass="error" /></td>
+							<td><form:errors path="user.password" cssClass="error" />
+								<form:hidden path="user.enabled" /></td>
 						</tr>
 						<tr>
 							<td>Address Line 1:</td>
@@ -98,7 +99,8 @@
 							<td>Zip Code:</td>
 							<td><form:input path="address.zipCode"
 									onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' /></td>
-							<td><form:errors path="address.zipCode" cssClass="error" /></td>
+							<td><form:errors path="address.zipCode" cssClass="error" />
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="submit"

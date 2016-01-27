@@ -81,6 +81,7 @@
 								<th>Brand</th>
 								<th>Color</th>
 								<th>Price</th>
+								<th>Quantity</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -93,17 +94,17 @@
 									<td>${listValue.brand}</td>
 									<td>${listValue.color}</td>
 									<td>${listValue.price}</td>
-									<td><c:if
-											test="${listValue.status =='STOCK' && listValue.isInCart == 'NO'}">
+									<td><form:input path="product.quantity"
+											onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' /></td>
+									<td><c:if test="${listValue.status =='STOCK'}">
 											<a
 												href="<c:url value='/addToCart/${listValue.inventoryId}' />">Add
 												To Cart</a>
-										</c:if> <c:if
-											test="${listValue.status =='STOCK' && listValue.isInCart == 'YES'}">
+										</c:if> <c:if test="${listValue.status =='STOCK'}">
 											<a
 												href="<c:url value='/removeFromCart/${listValue.inventoryId}' />">Remove
 												from Cart</a>
-										</c:if> <c:if test="${listValue.status =='RETAIL'}">
+										</c:if> <c:if test="${listValue.quantity < 1}">
 											<c:out value="Out of Stock" />
 										</c:if></td>
 								</tr>

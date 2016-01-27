@@ -2,8 +2,6 @@ package com.learning.spring.Service;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +15,8 @@ import com.learning.spring.Model.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private SessionFactory sessionFactory;
-	private Session session;
-
-	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private RoleDao roleDao;
 
@@ -56,13 +50,9 @@ public class UserServiceImpl implements UserService {
 		roleDao.saveRole(role);
 	}
 
-	/*
-	 * @Override public Boolean isLoggedInUserAdmin(String username) {
-	 * Transaction trans = sessionFactory.getCurrentSession()
-	 * .beginTransaction(); session = sessionFactory.openSession(); Object query
-	 * = session.createCriteria(Role.class) .add(Restrictions.eq("username",
-	 * username)).uniqueResult();
-	 * 
-	 * if (null != query) { return true; } return false; }
-	 */
+	@Override
+	public User getLoggedInUser(String username) {
+		return userDao.getLoggedInUser(username);
+	}
+
 }

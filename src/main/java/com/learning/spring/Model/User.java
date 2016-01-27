@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,7 +31,7 @@ public class User {
 	@Column(name = "LASTNAME")
 	private String lastname;
 
-	@Column(name = "USERNAME")
+	@Column(name = "USERNAME", unique = true)
 	private String username;
 
 	@Column(name = "USER_PASSWORD")
@@ -38,11 +40,18 @@ public class User {
 	@Column(name = "ENABLED")
 	private int enabled;
 
+	// @OneToOne
+	// @PrimaryKeyJoinColumn
+	// private Product product;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId")
 	private Set<Role> role = new HashSet<Role>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Address> address = new HashSet<Address>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Product> product = new HashSet<Product>();
 
 	public User() {
 	}
@@ -122,5 +131,13 @@ public class User {
 
 	public void setAddress(Set<Address> address) {
 		this.address = address;
+	}
+
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
 	}
 }

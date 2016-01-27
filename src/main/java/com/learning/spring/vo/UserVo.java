@@ -11,7 +11,7 @@ public class UserVo {
 
 	private Address address;
 
-	private String confirmPassword;
+	// private String confirmPassword;
 
 	public User getUser() {
 		return user;
@@ -37,11 +37,11 @@ public class UserVo {
 		this.userVoId = userVoId;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+	// public String getConfirmPassword() {
+	// return confirmPassword;
+	// }
+	//
+	// public void setConfirmPassword(String confirmPassword) {
+	// this.confirmPassword = confirmPassword;
+	// }
 }

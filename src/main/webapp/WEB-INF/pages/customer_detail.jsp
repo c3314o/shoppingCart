@@ -83,12 +83,10 @@
 						<td>${userForm.address.zipCode}</td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center">
+						<td colspan="2">
 							<div class="container">
-								<h3>
-									Thank you for registering!!! <a href="<c:url value='/login' />">Click
-										to Log In</a>
-								</h3>
+								Thank you for registering!!! <a href="<c:url value='/login' />">Click
+									to Log In</a>
 							</div>
 						</td>
 					</tr>

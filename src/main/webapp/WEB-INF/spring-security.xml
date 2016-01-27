@@ -6,17 +6,16 @@
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<http auto-config="true">
-		<!-- <intercept-url pattern="/index**" access="ADMIN" /> -->
+		<!-- <intercept-url pattern="/**" access="hasRole('ADMIN') || hasRole('USER')" 
+			/> -->
 
 		<form-login login-page="/login" default-target-url="/home"
 			authentication-failure-url="/fail2login" />
 		<logout logout-success-url="/logout" />
-		<!-- <csrf /> -->
 	</http>
 
 	<authentication-manager>
 		<authentication-provider>
-			<!-- <password-encoder hash="bcrypt" /> -->
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="select 
 				username,user_password,enabled from user_details where username=?"

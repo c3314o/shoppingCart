@@ -3,6 +3,8 @@ package com.learning.spring.Service;
 import java.util.List;
 
 import com.learning.spring.Model.Inventory;
+import com.learning.spring.Model.Product;
+import com.learning.spring.Model.User;
 
 public interface InventoryService {
 
@@ -10,13 +12,17 @@ public interface InventoryService {
 
 	public void updateProduct(Inventory item);
 
-	public void purchaseProduct(int inventoryId, String status);
+	public void deleteProduct(Inventory item);
 
 	public Inventory getProduct(int inventoryId);
 
 	public List getAllProducts();
 
-	public void updateCartField(int inventoryId, String isInCart);
+	public List getAllActiveProducts();
 
-	public List getAllProductsInCart();
+	public void saveProductDetails(int inventoryId, User user);
+
+	public void deleteProductDetails(int inventoryId);
+
+	public Product getProductDetails(int inventoryId);
 }

@@ -36,9 +36,6 @@ public class LoginController {
 	public String registerUser(@ModelAttribute("userForm") UserVo userVo,
 			BindingResult result, Map<String, Object> map) {
 		Role role = new Role();
-		role.setRole("USER");
-		role.setUserId(userVo.getUser());
-		role.setUsername(userVo.getUser().getUsername());
 
 		boolean error = false;
 		if (!StringUtils.hasText(userVo.getUser().getFirstname())) {
@@ -85,10 +82,17 @@ public class LoginController {
 			return "signup";
 		}
 
-		userVo.getAddress().setUser(userVo.getUser());
+		userVo.getUser().setEnabled(1);
 		userService.addUser(userVo.getUser());
+
+		role.setRole("USER");
+		role.setUserId(userVo.getUser());
+		role.setUsername(userVo.getUser().getUsername());
 		userService.saveRole(role);
+
+		userVo.getAddress().setUser(userVo.getUser());
 		addressService.saveAddress(userVo.getAddress());
+
 		map.put("user", userVo.getUser());
 		return "customer_detail";
 	}

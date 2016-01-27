@@ -34,6 +34,21 @@
 });
 </script>
 <style type="text/css">
+.msg {
+	color: #006600;
+	font-weight: bold;
+}
+
+.error {
+	color: #ff0000;
+	font-weight: bold;
+}
+
+.deleted {
+	color: #a3a3c2;
+	font-weight: bold;
+}
+
 .generic-container {
 	position: fixed;
 	width: 80%;
@@ -68,7 +83,7 @@
 	<jsp:include page="index.jsp"></jsp:include>
 	<h:body>
 		<form:form action="viewProduct" method="get">
-		<!-- 	<div class="search-container">
+			<!-- 	<div class="search-container">
 				<label for="automplete-3">Search: </label> <input id="automplete-3">
 			</div> -->
 			<div class="generic-container">
@@ -85,7 +100,10 @@
 								<th>Brand</th>
 								<th>Color</th>
 								<th>Price</th>
+								<th>Ouantity</th>
 								<th>Status</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,8 +115,29 @@
 									<td>${listValue.brand}</td>
 									<td>${listValue.color}</td>
 									<td>${listValue.price}</td>
-									<td>${listValue.status}</td>
+									<td><c:if
+											test="${listValue.quantity < 5 && listValue.quantity > 1 && listValue.isActive == 'YES'}">
+											<div class="error">
+												<label>*</label>${listValue.quantity}</div>
+										</c:if> <c:if
+											test="${listValue.quantity > 5 && listValue.isActive == 'YES'}">
+												${listValue.quantity}
+										</c:if></td>
+									<td><c:if
+											test="${listValue.quantity < 1 && listValue.isActive == 'YES'}">
+											<div class="error">Out Of Stock</div>
+										</c:if> <c:if test="${listValue.isActive == 'NO'}">
+											<div class="deleted">Delete</div>
+										</c:if> <c:if
+											test="${listValue.isActive == 'YES' && listValue.status == 'STOCK' && listValue.quantity > 1}">
+											${listValue.status}
+										</c:if></td>
+									<td><a href="<c:url value='/${listValue.inventoryId}' />">Edit
+											Product</a></td>
+									<td><a
+										href="<c:url value='/delete/${listValue.inventoryId}' />">Delete</a></td>
 								</tr>
+								<tr>
 							</c:forEach>
 						</tbody>
 					</table>
